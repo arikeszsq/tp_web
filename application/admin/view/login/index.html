@@ -10,7 +10,6 @@
     <meta http-equiv="expires" content="0">
     <title>登录</title>
     <link href="__PUBLIC__/admin/login/css/default.css" rel="stylesheet" type="text/css"/>
-    <!--必要样式-->
     <link href="__PUBLIC__/admin/login/css/styles.css" rel="stylesheet" type="text/css"/>
     <link href="__PUBLIC__/admin/login/css/demo.css" rel="stylesheet" type="text/css"/>
     <link href="__PUBLIC__/admin/login/css/loaders.css" rel="stylesheet" type="text/css"/>
@@ -25,7 +24,7 @@
             <div class='icon'>
                 <img alt="" src='__PUBLIC__/admin/login/img/user_icon_copy.png'>
             </div>
-            <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value="123456"/>
+            <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value="admin"/>
             <div class='validation'>
                 <img alt="" src='__PUBLIC__/admin/login/img/tick.png'>
             </div>
@@ -55,7 +54,7 @@
     <div class='success'>
     </div>
     <div class='disclaimer'>
-        <p>欢迎登录后台管理系统 更多源码：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+        <p>欢迎登录后台管理系统</p>
     </div>
 </div>
 <div class='authent'>
@@ -82,8 +81,8 @@
 <script type="text/javascript">
     var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
     var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
-    //默认账号密码
 
+    //默认账号密码
     var truelogin = "123456";
     var truepwd = "123456";
 
@@ -146,20 +145,20 @@
     });
     var open = 0;
     layui.use('layer', function () {
-        var msgalert = '默认账号:' + truelogin + '<br/> 默认密码:' + truepwd;
-        var index = layer.alert(msgalert, {
-            icon: 6,
-            time: 4000,
-            offset: 't',
-            closeBtn: 0,
-            title: '友情提示',
-            btn: [],
-            anim: 2,
-            shade: 0
-        });
-        layer.style(index, {
-            color: '#777'
-        });
+        // var msgalert = '欢迎回来';
+        // var index = layer.alert(msgalert, {
+        //     icon: 6,
+        //     time: 4000,
+        //     offset: 't',
+        //     closeBtn: 0,
+        //     title: '嗨：',
+        //     btn: [],
+        //     anim: 2,
+        //     shade: 0
+        // });
+        // layer.style(index, {
+        //     color: '#777'
+        // });
         //非空验证
         $('input[type="button"]').click(function () {
             var login = $('input[name="login"]').val();
@@ -170,10 +169,11 @@
             } else if (pwd == '') {
                 ErroAlert('请输入密码');
             } else if (code == '' || code.length != 4) {
-                ErroAlert('输入验证码');
+                ErroAlert('输入验证码，验证码不正确');
             } else {
-                //认证中..
-                fullscreen();
+                // fullscreen();
+                //全屏
+
                 $('.login').addClass('test'); //倾斜特效
                 setTimeout(function () {
                     $('.login').addClass('testtwo'); //平移特效
@@ -194,8 +194,14 @@
                 var JsonData = {login: login, pwd: pwd, code: code};
                 //此处做为ajax内部判断
                 var url = "";
-                if (JsonData.login == truelogin && JsonData.pwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()) {
-                    url = "Ajax/Login";
+                // if (JsonData.login == truelogin && JsonData.pwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()) {
+                //     url = "Ajax/Login";
+                // } else {
+                //     url = "Ajax/LoginFalse";
+                // }
+
+                if (JsonData.code.toUpperCase() == CodeVal.toUpperCase()) {
+                    url = "/admin/login/test";
                 } else {
                     url = "Ajax/LoginFalse";
                 }
@@ -261,7 +267,7 @@
             url: 'Ajax/LoginFalse',
             status: 200,
             responseTime: 50,
-            responseText: {"Status": "Erro", "Erro": "账号名或密码或验证码有误"}
+            responseText: {"Status": "Erro", "Erro": "验证码错误"}
         });
     }
 </script>

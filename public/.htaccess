@@ -1,8 +1,30 @@
-<IfModule mod_rewrite.c>
-  Options +FollowSymlinks -Multiviews
-  RewriteEngine On
+#phpstudy：
 
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+<IfModule mod_rewrite.c>
+Options +FollowSymlinks -Multiviews
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [L,E=PATH_INFO:$1]
 </IfModule>
+
+
+#Apache：
+
+#<IfModule mod_rewrite.c>
+#Options +FollowSymlinks -Multiviews
+#RewriteEngine on
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+#</IfModule>
+
+
+#Nginx（在Nginx.conf中添加）：
+#
+#location / { // …..省略部分代码
+#    if (!-e $request_filename) {
+#        rewrite  ^(.*)$  /index.php?s=/$1  last;
+#        break;
+#    }
+#}
