@@ -1,1 +1,91 @@
-asdf
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<div class="content">
+    <form action="/index/login/login" method="post">
+        <label>用户名</label>
+        <input type="text" name="username">
+        <label>密码</label>
+        <input type="password" name="password" id="password">
+        <input type="submit" value="提交">
+    </form>
+</div>
+
+</body>
+
+</html>
+
+<!--http://cms.me/login.html-->
+<!--'-->
+<!--开启session-->
+<!--session('name', $user['username']);-->
+<!--session('id', $user['id']);-->
+<!-- -->
+<!-- -->
+<!--控制器器中首先是index控制器-->
+
+<!--namespace app\index\controller;-->
+<!--use think\Controller;-->
+<!--use think\Session;-->
+
+<!--use think\Session;//引入一下session文件-->
+
+<!--class Index extends Controller {-->
+<!--//页面读取页面加载-->
+<!--public function index() {-->
+<!--      if(!Session::has('name')){-->
+<!--            //重定向到指定的URL地址-->
+<!--            $this->error('您未进行登录', 'index/Login/index'); exit;-->
+<!--        }-->
+<!--         $user = Session::get('name');-->
+<!--        $this->assign('user', $user);-->
+<!--        return $this->fetch('index');-->
+<!--    }-->
+<!-- -->
+<!--//使用session更改密码-->
+<!--    public function change() {-->
+<!--        $user = Session::get('name');-->
+<!--        //dump($user);exit;-->
+<!--        $this->assign('user', $user);-->
+<!--        return $this->fetch('change');-->
+<!--    }-->
+<!--    //更改密码/命令-->
+<!--    public function alter() {-->
+<!--        if ($_POST) {-->
+<!--            $name = input('name');-->
+<!--            $former = input('former');-->
+<!--            $fresh = input('fresh');-->
+<!--            $affirm = input('affirm');-->
+<!--            $user = db('user')->where('name', $name)->find();-->
+<!--            if ($user['password'] == md5($former)) {-->
+<!--                $id = $user['id'];-->
+<!--                //                  dump($id);exit;-->
+<!--                $update = ['password' => md5($fresh) , 'id' => $id];-->
+<!--                $data = db('user')->update($update);-->
+<!--                if ($data) {-->
+<!--                    $out = session(null);-->
+<!--                    $this->success('更改成功', 'index/Login/index');-->
+<!--                } else {-->
+<!--                    $this->error('编辑失败');-->
+<!--                }-->
+<!--            } else {-->
+<!--                $this->error('原始密码不正确');-->
+<!--            }-->
+<!--        }-->
+<!--    }-->
+<!--//注销退出登录-->
+<!-- -->
+<!--   public function out() {-->
+<!--        $out =  Session::clear();-->
+<!--        $this->error('退出成功', 'index/Login/index');-->
+<!--    }-->
+<!-- -->
+<!--清空某个session-->
+<!--session('topic_all',null);//清空session-->
